@@ -1,7 +1,8 @@
 {% extends 'music/base.html' %}
 
-<div class="album py-5 bg-light">
-    {% block content %}
+
+{% block content %}
+    <div class="album py-5 bg-light">
         <div class="container">
             {% if all_albums %}
 
@@ -38,5 +39,5 @@
                 <h3>You don't have any albums</h3>
             {% endif %}
         </div>
-    {% endblock %}
-</div>
+    </div>
+{% endblock %}

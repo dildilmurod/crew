@@ -1,32 +1,66 @@
 {% extends 'music/base.html' %}
 
+
+
+
+
+
 {% block content %}
-    <img src="{{ album.album_logo }}" style="width: 30%">
-    <h1>{{ album.album_title }}</h1>
-    <h3>{{ album.artist }}</h3>
+    <div class="album py-5 bg-light">
+        <div class="container">
+            <div class="row">
+                {% if error_message %}
+                    <p><strong>{{ error_message }}</strong></p>
+                {% endif %}
+                <div class="col-md-4">
+                    <div class="card mb-4 shadow-sm">
+                        <img src="{{ album.album_logo }}" style="width: 100%">
+                        <div class="card-body">
+                            <h3 class="card-text">{{ album.album_title }}</h3>
+                            <p class="card-text">{{ album.artist }}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <p class="text-info">{{ album.genre }}</p>
+                                <small class="text-muted">9 mins</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="btn-group">
+                        <a href="{% url 'music:detail' album.id %}">
+                            <button type="button" class="btn btn-primary btn-md">View</button>
+                        </a> &nbsp;
+                        <a href="{% url 'music:detail' album.id %}">
+                            <button type="button" class="btn btn-success btn-md">Edit</button>
+                        </a>
+                    </div>
+                    <hr class="mb-4">
+                    <div class="card mb-8 shadow-sm">
+
+                        <div class="card-body">
+                            <h3 class="card-text">{{ album.artist }}</h3>
+                            <hr class="mb-4">
+                            <ul style="list-style: none;">
+                                {% for song in album.song_set.all %}
+                                    <li>
+                                        <label for="song{{ forloop.counter }}">
+                                            {{ song.song_title }} - {{ song.file_type }}
+                                            {% if song.is_favorite %}
+                                                *
+                                            {% endif %}
+                                        </label>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
 
 
-    {% if error_message %}
-        <p><strong>{{ error_message }}</strong></p>
-    {% endif %}
+                </div>
 
-{#    {% url 'music:favorite' album.id %}#}
-    <form action="#" method="post">
-        {% csrf_token %}
-        <ul style="list-style: none;">
-            {% for song in album.song_set.all %}
-                <li>
-                    <input type="radio" id="song{{ forloop.counter }}" name="song" value="{{ song.id }}"/>
-                    <label for="song{{ forloop.counter }}">
-                        {{ song.song_title }} - {{ song.file_type }}
-                        {% if song.is_favorite %}
-                            *
-                        {% endif %}
-                    </label>
-                </li>
-            {% endfor %}
-
-        </ul>
-        <input type="submit" value="Favorite">
-    </form>
+            </div>
+        </div>
+    </div>
 {% endblock %}
