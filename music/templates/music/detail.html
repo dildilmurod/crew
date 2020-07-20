@@ -10,7 +10,8 @@
         <p><strong>{{ error_message }}</strong></p>
     {% endif %}
 
-    <form action="{% url 'music:favorite' album.id %}" method="post">
+{#    {% url 'music:favorite' album.id %}#}
+    <form action="#" method="post">
         {% csrf_token %}
         <ul style="list-style: none;">
             {% for song in album.song_set.all %}

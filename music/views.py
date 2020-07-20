@@ -1,5 +1,21 @@
 from django.views import generic
-from music.models import import Album, Song
+from music.models import Album, Song
+
+
+class IndexView(generic.ListView):
+    template_name = 'music/index.html'
+    context_object_name = 'all_albums'
+
+    def get_queryset(self):
+        return Album.objects.all()
+
+
+class DetailView(generic.DetailView):
+    model = Album
+    context_object_name = 'album'
+    template_name = 'music/detail.html'
+
+
 
 
 
@@ -27,15 +43,3 @@ from music.models import import Album, Song
 #     album = get_object_or_404(Album, pk=album_id)
 #     return render(request, 'music/detail.html', {'album': album})
 #
-#
-# def favorite(request, album_id):
-#     album = get_object_or_404(Album, pk=album_id)
-#     try:
-#         selected = album.song_set.get(pk=request.POST['song'])
-#     except (KeyError, Song.DoesNotExist):
-#         return render(request, 'music/detail.html',
-#                       {'album': album, 'error_message': "You did not selected a valid song"})
-#     else:
-#         selected.is_favorite = True
-#         selected.save()
-#         return render(request, 'music/detail.html', {'album': album})

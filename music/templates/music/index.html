@@ -1,16 +1,42 @@
 {% extends 'music/base.html' %}
 
-{% block content %}
-    {% if all_albums %}
-        <h3>Here all my Albums</h3>
-        <ul style="list-style: none;">
-            {% for album in all_albums %}
-                <li>
-                    <a href="{% url 'music:detail' album.id %}">{{ album.album_title }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <h3>You don't have any albums</h3>
-    {% endif %}
-{% endblock %}
+<div class="album py-5 bg-light">
+    {% block content %}
+        <div class="container">
+            {% if all_albums %}
+
+
+
+                <h3>Here all my Albums</h3>
+                <div class="row">
+                    {% for album in all_albums %}
+                        <div class="col-md-4">
+
+                            <div class="card mb-4 shadow-sm">
+                                <a href="{% url 'music:detail' album.id %}">
+                                    <img src="{{ album.album_logo }}" style="width: 100%">
+                                </a>
+                                <div class="card-body">
+                                    <p class="card-text">{{ album.album_title }}</p>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <div class="btn-group">
+                                            <a href="{% url 'music:detail' album.id %}">
+                                                <button type="button" class="btn btn-sm btn-outline-secondary">View
+                                                </button>
+                                            </a>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
+                                        </div>
+                                        <small class="text-muted">20.07.20</small>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <h3>You don't have any albums</h3>
+            {% endif %}
+        </div>
+    {% endblock %}
+</div>
