@@ -29,12 +29,15 @@
                 <div class="col-md-8">
 
                     <div class="btn-group">
-                        <a href="{% url 'music:detail' album.id %}">
-                            <button type="button" class="btn btn-primary btn-md">View</button>
-                        </a> &nbsp;
-                        <a href="{% url 'music:detail' album.id %}">
-                            <button type="button" class="btn btn-success btn-md">Edit</button>
+                        <a href="{% url 'music:album-update' album.id %}">
+                            <button type="button" class="btn btn-primary btn-md">Edit</button>
                         </a>
+                        &nbsp;
+                        <form action="{% url 'music:album-delete' album.id %}" method="post" style="display: inline">
+                            {% csrf_token %}
+                            <input type="hidden" name="album_id" value="{{ album.id }}">
+                            <button type="submit" class="btn btn-danger btn-md">Delete</button>
+                        </form>
                     </div>
                     <hr class="mb-4">
                     <div class="card mb-8 shadow-sm">
