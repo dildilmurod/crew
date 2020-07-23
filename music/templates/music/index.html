@@ -1,5 +1,6 @@
 {% extends 'music/base.html' %}
 
+{% block title %}Album list{% endblock %}
 
 {% block content %}
     <div class="album py-5 bg-light">
@@ -15,7 +16,7 @@
                             <a href="{% url 'music:detail' album.id %}">
                                 <div class="card mb-4 shadow-sm">
 
-                                    <img src="{{ album.album_logo }}" style="width: 100%">
+                                    <img src="{{ album.album_logo.url }}" style="width: 100%">
 
                                     <div class="card-body">
                                         <p class="card-text">{{ album.album_title }}</p>
